@@ -1,0 +1,23 @@
+{
+  "name": "radiojs",
+  "version": "0.1.0",
+  "description": "Publish/Subscribe event handler for javascript",
+  "main": "src/radio.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aether7/radiojs.git"
+  },
+  "keywords": [
+    "radio",
+    "pubsub"
+  ],
+  "author": "aether7",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aether7/radiojs/issues"
+  },
+  "homepage": "https://github.com/aether7/radiojs#readme"
+}
