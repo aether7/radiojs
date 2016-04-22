@@ -11,6 +11,10 @@
     publish: function(channel){
       var args = Array.prototype.slice.call(arguments, 1);
 
+      if(!channels[channel]) {
+        return;
+      }
+
       channels[channel].forEach(function(listener){
         listener.apply(args);
       });
@@ -23,7 +27,7 @@
       channels[channel].push(listener);
 
       return {
-        unsubscribe: function(){
+        dispose: function(){
           channels[channel] = channels[channel].filter(function(observer){
             return observer !== listener;
           });
