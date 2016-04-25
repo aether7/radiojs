@@ -1,6 +1,6 @@
 {
   "name": "radiojs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Publish/Subscribe event handler for javascript",
   "main": "dist/radio.min.js",
   "scripts": {

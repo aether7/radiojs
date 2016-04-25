@@ -5,18 +5,18 @@
     window.radio = factory();
   }
 })(function(){
-  var channels = {};
+  var channels = {}, slice = Array.prototype.slice;
 
   return {
     publish: function(channel){
-      var args = Array.prototype.slice.call(arguments, 1);
+      var args = slice.call(arguments, 1);
 
       if(!channels[channel]) {
         return;
       }
 
       channels[channel].forEach(function(listener){
-        listener.apply(args);
+        listener.apply(null, args);
       });
     },
     subscribe: function(channel, listener){
@@ -36,6 +36,15 @@
     },
     channels: function(){
       return Object.keys(channels);
+    },
+    shutdown: function(){
+      var args = arguments.length ? slice.call(arguments) : this.channels();
+
+      args.forEach(function(channelName){
+        if(channels[channelName]){
+          channels[channelName].length = 0;
+        }
+      });
     }
   };
 });
