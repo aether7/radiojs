@@ -10,7 +10,7 @@ describe('> radio', () => {
 
   it('should have all methods required', () => {
     const actual = Object.keys(radio).sort();
-    var expected = ['channels', 'publish', 'shutdown', 'subscribe'];
+    const expected = ['channels', 'publish', 'shutdown', 'subscribe'];
 
     expect(actual).toEqual(expected);
   });
@@ -19,7 +19,7 @@ describe('> radio', () => {
 describe('> radio create channel', () => {
   let listener;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     radio.shutdown();
     listener = jest.fn();
     radio.subscribe('channel1', listener);
@@ -27,8 +27,8 @@ describe('> radio create channel', () => {
 
   it('shouldn`t call to non-existent channel', () => {
     radio.publish('non-existent');
-    expect(listener).not.toBeCalled()
-  })
+    expect(listener).not.toBeCalled();
+  });
 
   it('should call function', () => {
     radio.publish('channel1');
@@ -37,7 +37,7 @@ describe('> radio create channel', () => {
 
   it('should there is the channel in the list', () => {
     const actual = radio.channels();
-    const expected = [ 'channel1' ]
+    const expected = ['channel1'];
     expect(actual).toEqual(expected);
   });
 
@@ -64,9 +64,9 @@ describe('> radio create channel', () => {
   it('should clear non-existent channel', () => {
     radio.shutdown('non-existent');
     radio.publish('non-existent');
-    
+
     expect(listener).not.toBeCalled();
-  })
+  });
 });
 
 describe('> radio unsubscribe channel', () => {
@@ -80,5 +80,4 @@ describe('> radio unsubscribe channel', () => {
     radio.publish('channel1');
     expect(listener).not.toBeCalled();
   });
-
 });
