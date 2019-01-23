@@ -5,6 +5,7 @@
   "main": "dist/radio.min.js",
   "scripts": {
     "test": "jest . --coverage",
+    "lint": "eslint .",
     "compress": "uglifyjs --compress --mangle --lint --screw-ie8 -- src/radio.js > dist/radio.min.js",
     "dist": "npm run test && npm run compress",
     "prepublish": "npm run dist"
@@ -23,8 +24,16 @@
     "url": "https://github.com/aether7/radiojs/issues"
   },
   "homepage": "https://github.com/aether7/radiojs#readme",
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100
+  },
   "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.15.0",
     "jest": "^23.6.0",
+    "prettier": "^1.16.1",
     "uglify-js": "^2.6.2"
   }
 }

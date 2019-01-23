@@ -1,50 +1,44 @@
-(function(factory){
-  if(typeof module !== 'undefined'){
-    module.exports = factory();
-  }else{
-    window.radio = factory();
-  }
-})(function(){
-  var channels = {}, slice = Array.prototype.slice;
+function factory() {
+  const channels = {};
+  const { slice } = Array.prototype;
 
   return {
-    publish: function(channel){
-      var args = slice.call(arguments, 1);
-
-      if(!channels[channel]) {
+    publish(channel, ...args) {
+      if (!channels[channel]) {
         return;
       }
 
-      channels[channel].forEach(function(listener){
-        listener.apply(null, args);
+      channels[channel].forEach(listener => {
+        listener(...args);
       });
     },
-    subscribe: function(channel, listener){
-      if(!channels[channel]){
+    subscribe(channel, listener) {
+      if (!channels[channel]) {
         channels[channel] = [];
       }
 
       channels[channel].push(listener);
 
       return {
-        dispose: function(){
-          channels[channel] = channels[channel].filter(function(observer){
-            return observer !== listener;
-          });
+        dispose() {
+          channels[channel] = channels[channel].filter(observer => observer !== listener);
         }
       };
     },
-    channels: function(){
+    channels() {
       return Object.keys(channels);
     },
-    shutdown: function(){
-      var args = arguments.length ? slice.call(arguments) : this.channels();
+    shutdown() {
+      // eslint-disable-next-line prefer-rest-params
+      const args = arguments.length ? slice.call(arguments) : this.channels();
 
-      args.forEach(function(channelName){
-        if(channels[channelName]){
+      args.forEach(channelName => {
+        if (channels[channelName]) {
           channels[channelName].length = 0;
         }
       });
     }
   };
-});
+}
+
+module.exports = factory();
