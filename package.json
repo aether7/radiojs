@@ -4,7 +4,7 @@
   "description": "Publish/Subscribe event handler for javascript",
   "main": "dist/radio.min.js",
   "scripts": {
-    "test": "tape tests/*.js | faucet",
+    "test": "jest . --coverage",
     "compress": "uglifyjs --compress --mangle --lint --screw-ie8 -- src/radio.js > dist/radio.min.js",
     "dist": "npm run test && npm run compress",
     "prepublish": "npm run dist"
@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/aether7/radiojs#readme",
   "devDependencies": {
-    "faucet": "0.0.1",
-    "tape": "^4.5.1",
+    "jest": "^23.6.0",
     "uglify-js": "^2.6.2"
   }
 }

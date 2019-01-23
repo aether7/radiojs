@@ -1,6 +1,20 @@
-# radiojs
+# Radiojs
 
 RadioJS is a library to provide you a way to communicate your components/objects via publisher/subscriber pattern.
+
+# Table of contents
+
+- [Initial setup](#initial-setup)
+- API
+
+
+## Initial setup
+
+To get started, please run this command on your terminal
+
+```shell
+make init
+```
 
 ## Subscribe(channelName, callback)
 
