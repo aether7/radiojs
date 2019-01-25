@@ -2,13 +2,11 @@
   "name": "radiojs",
   "version": "0.2.1",
   "description": "Publish/Subscribe event handler for javascript",
-  "main": "dist/radio.min.js",
+  "main": "src/radio.js",
   "scripts": {
     "test": "jest . --coverage",
     "lint": "eslint .",
-    "compress": "uglifyjs --compress --mangle --lint --screw-ie8 -- src/radio.js > dist/radio.min.js",
-    "dist": "npm run test && npm run compress",
-    "prepublish": "npm run dist"
+    "prepublish": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -24,6 +22,9 @@
     "url": "https://github.com/aether7/radiojs/issues"
   },
   "homepage": "https://github.com/aether7/radiojs#readme",
+  "engines": {
+    "node": ">=8.0"
+  },
   "prettier": {
     "singleQuote": true,
     "printWidth": 100
