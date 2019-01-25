@@ -20,17 +20,17 @@ function factory() {
       channels[channel].push(listener);
 
       return {
-        dispose() {
+        unsubscribe() {
           channels[channel] = channels[channel].filter(observer => observer !== listener);
         }
       };
     },
-    channels() {
+    getChannels() {
       return Object.keys(channels);
     },
-    shutdown() {
+    resetChannels() {
       // eslint-disable-next-line prefer-rest-params
-      const args = arguments.length ? slice.call(arguments) : this.channels();
+      const args = arguments.length ? slice.call(arguments) : this.getChannels();
 
       args.forEach(channelName => {
         if (channels[channelName]) {
