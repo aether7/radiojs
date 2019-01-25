@@ -5,10 +5,14 @@ RadioJS is a library to provide you a way to communicate your components/objects
 # Table of contents
 
 - [Initial setup](#initial-setup)
-- API
+- [API methods](#api-methods)
+  - [.subscribe(channel, listener)](#subscribe) => object
+  - [.publish(channel, subject)](#publish) => void
+  - [unsubscribe](#unsubscribe)
+  - [getChannels](#getChannels)
+  - [resetChannels](#resetChannels)
 
-
-## Initial setup
+## Initial setup
 
 To get started, please run this command on your terminal
 
@@ -16,41 +20,47 @@ To get started, please run this command on your terminal
 make init
 ```
 
-## Subscribe(channelName, callback)
+## API methods
 
-Allows you to subscribe a chosen channel through a listener. When this channel emits something,
-it will notify all its listener to execute.
 
-**Example**
+### subscribe
+
+Allows you to subscribe a chosen channel through a listener. When this channel
+emits something, it will notify all its listener to execute.
+
 ```javascript
 radio.subscribe('coffeeChannel', function(data){
   console.log('hi, I will do anything with the data');
 });
 ```
 
-When you invoke subscribe method, it returns to you an object with dispose method:
+### publish
 
-```javascript
-var disposable = radio.subscribe('coffeeChannel', function(data){
-  //some instructions to do with data
-});
-
-//if I want to remove my listener to channel, just invoke dispose
-disposable.dispose();
-```
-
-## Publish(channelName, [...data])
-
-Allows you broadcast your message through a channel, it allows to send any data as you like.
+Allows you broadcast your message through a channel, it allows to send any data
+as you like.
 
 ```javascript
 radio.publish('coffeeChannel', 'macchiato');
 ```
 
+### unsubscribe
 
-## Channels
+When you invoke subscribe method, it returns to you an object with dispose
+method:
 
-If you want to know which channels you have registered, you can use this method to know that:
+```javascript
+const subscription = radio.subscribe('demoChannel', (arg) => {
+  console.log('this is what i am getting', arg);
+});
+
+subscription.unsubscribe();
+```
+
+### getChannels
+
+If you want to know which channels you have registered, you can use this method
+to know that:
+
 
 ```javascript
 radio.subscribe('one', function(d){
@@ -61,19 +71,20 @@ radio.subscribe('two', function(d){
   console.log(parseInt(d) + 13);
 });
 
-var channels = radio.channels();//['one', 'two']
+var channels = radio.getChannels();//['one', 'two']
 ```
 
-### Shutdown(...channelName)
+### resetChannels
 
 If you want to reset some channels, you can just use shutdown to reset them.
 
 ```javascript
-radio.shutdown('javascript', 'one', 'coffeeChannel');
+radio.resetChannels('javascript', 'one', 'coffeeChannel');
 ```
 
-It will reset each of these channels, and will dispose all listeners. If you want to reset all channels, just invoke it without args
+It will reset each of these channels, and will dispose all listeners. If you
+want to reset all channels, just invoke it without args
 
 ```javascript
-radio.shutdown();
+radio.resetChannels();
 ```
