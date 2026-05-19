@@ -4,8 +4,8 @@
   "description": "Publish/Subscribe event handler for javascript",
   "main": "src/radio.js",
   "scripts": {
-    "test": "jest . --coverage",
-    "lint": "eslint .",
+    "test": "node --test --experimental-test-coverage",
+    "lint": "biome check .",
     "prepublish": "npm run lint && npm run test"
   },
   "repository": {
@@ -23,16 +23,9 @@
   },
   "homepage": "https://github.com/aether7/radiojs#readme",
   "engines": {
-    "node": ">=8.0"
-  },
-  "prettier": {
-    "singleQuote": true,
-    "printWidth": 100
+    "node": ">=18.0"
   },
   "devDependencies": {
-    "eslint": "^5.12.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.15.0",
-    "jest": "^26.6.3"
+    "@biomejs/biome": "^2.4.15"
   }
 }

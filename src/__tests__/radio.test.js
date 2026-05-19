@@ -1,18 +1,16 @@
+const { describe, it, beforeEach, mock } = require('node:test');
+const assert = require('node:assert/strict');
 const radio = require('../radio');
 
 describe('> radio', () => {
   it('should be a Object', () => {
     const actual = Object.prototype.toString.call(radio);
-    const expected = '[object Object]';
-
-    expect(actual).toBe(expected);
+    assert.strictEqual(actual, '[object Object]');
   });
 
   it('should have all methods required', () => {
     const actual = Object.keys(radio).sort();
-    const expected = ['getChannels', 'publish', 'resetChannels', 'subscribe'];
-
-    expect(actual).toEqual(expected);
+    assert.deepStrictEqual(actual, ['getChannels', 'publish', 'resetChannels', 'subscribe']);
   });
 });
 
@@ -21,51 +19,47 @@ describe('> radio create channel', () => {
 
   beforeEach(() => {
     radio.resetChannels();
-    listener = jest.fn();
+    listener = mock.fn();
     radio.subscribe('channel1', listener);
   });
 
   it('shouldn`t call to non-existent channel', () => {
     radio.publish('non-existent');
-    expect(listener).not.toBeCalled();
+    assert.strictEqual(listener.mock.calls.length, 0);
   });
 
   it('should call function', () => {
     radio.publish('channel1');
-    expect(listener).toBeCalled();
+    assert.ok(listener.mock.calls.length > 0);
   });
 
   it('should there is the channel in the list', () => {
-    const actual = radio.getChannels();
-    const expected = ['channel1'];
-    expect(actual).toEqual(expected);
+    assert.deepStrictEqual(radio.getChannels(), ['channel1']);
   });
 
   it('should clear all channels', () => {
     radio.resetChannels();
     radio.publish('channel1');
-
-    expect(listener).not.toBeCalled();
+    assert.strictEqual(listener.mock.calls.length, 0);
   });
 
   it('should clear one channel', () => {
     radio.resetChannels('channel1');
 
-    const listener2 = jest.fn();
+    const listener2 = mock.fn();
     radio.subscribe('channel2', listener2);
 
     radio.publish('channel1');
     radio.publish('channel2');
 
-    expect(listener).not.toBeCalled();
-    expect(listener2).toBeCalled();
+    assert.strictEqual(listener.mock.calls.length, 0);
+    assert.ok(listener2.mock.calls.length > 0);
   });
 
   it('should clear non-existent channel', () => {
     radio.resetChannels('non-existent');
     radio.publish('non-existent');
-
-    expect(listener).not.toBeCalled();
+    assert.strictEqual(listener.mock.calls.length, 0);
   });
 });
 
@@ -75,9 +69,9 @@ describe('> radio unsubscribe channel', () => {
   });
 
   it('should dispose channel', () => {
-    const listener = jest.fn();
+    const listener = mock.fn();
     radio.subscribe('channel1', listener).unsubscribe();
     radio.publish('channel1');
-    expect(listener).not.toBeCalled();
+    assert.strictEqual(listener.mock.calls.length, 0);
   });
 });

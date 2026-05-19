@@ -1,6 +1,5 @@
 function factory() {
   const channels = {};
-  const { slice } = Array.prototype;
 
   return {
     publish(channel, ...args) {
@@ -28,9 +27,8 @@ function factory() {
     getChannels() {
       return Object.keys(channels);
     },
-    resetChannels() {
-      // eslint-disable-next-line prefer-rest-params
-      const args = arguments.length ? slice.call(arguments) : this.getChannels();
+    resetChannels(...channelNames) {
+      const args = channelNames.length ? channelNames : this.getChannels();
 
       args.forEach(channelName => {
         if (channels[channelName]) {
